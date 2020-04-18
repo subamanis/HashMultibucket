@@ -65,6 +65,18 @@ class HashMultibucketTest
         assertTrue(smb.putInCollection("ni",2,1));
     }
 
+    @Test
+    void put_putInMap()
+    {
+        Multibucket<String> smb = new HashMultibucket<>();
+
+        assertFalse(smb.putInMap("ni", "mk",2,0));
+        smb.put("ni",4);
+        assertFalse(smb.putInMap("ni", "mk",2,0));
+        smb.put("ni",new HashMap<>());
+        assertTrue(smb.putInMap("ni", "mk",2,1));
+    }
+
 
     @Test
     void replace()
@@ -166,6 +178,20 @@ class HashMultibucketTest
         assertNull(smb.get("ee",2));
         smb.put("ee", new HashMap<String,Integer>());
         assertEquals(new HashMap<String,Integer>(), smb.get("ee",2));
+    }
+
+
+    @Test
+    void getFromMap()
+    {
+        Multibucket<String> smb = new HashMultibucket<>();
+
+        assertNull(smb.getFromMap("ee","mk",0));
+        Map<Integer, Integer> mii = new HashMap<>();
+        mii.put(1,2);
+        smb.put("ni",mii);
+        assertEquals((Integer) 2, smb.getFromMap("ni",1,0));
+        assertEquals((Integer) null, smb.getFromMap("ni",1,3));
     }
 
 

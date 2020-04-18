@@ -2,6 +2,12 @@ package petros.structs.multibucket;
 
 import java.util.*;
 
+/**
+ * @author Petros Papatheodorou
+ * @author GitHub: subamanis
+ * @author petrospapa21@gmail.com
+ * @param <K> Type of the keys.
+ */
 public class HashMultibucket<K> implements Multibucket<K>
 {
     private final Map<K,List<Bucket<?>>> bucketMap;
@@ -101,59 +107,6 @@ public class HashMultibucket<K> implements Multibucket<K>
      * {@inheritDoc}
      */
     @Override
-    public <V> Object replace(final K key, final V e, final int index)
-    {
-        List<Bucket<?>> existing = bucketMap.get(key);
-        if(existing == null) return null;
-
-        try{
-            Object prev = existing.get(index).get();
-            Bucket<V> newBucket = Bucket.of(e);
-            existing.set(index, newBucket);
-            return prev;
-        }catch (Exception ex) {
-            return null;
-        }
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override @SuppressWarnings("unchecked")
-    public <V> V replaceSameType(K key, V e, int index)
-    {
-        List<Bucket<?>> existing = bucketMap.get(key);
-        if(existing == null) return null;
-
-        try{
-            int typeCounter = 0;
-            int generalCounter = -1;
-            Bucket<V> wantedBucket = null;
-            for(Bucket<?> b : existing){
-                generalCounter++;
-                if(b.getType() == e.getClass()){
-                    if(typeCounter++ == index){
-                        wantedBucket = (Bucket<V>)b;
-                        break;
-                    }
-                }
-            }
-            if(wantedBucket == null) return null;
-
-            V prevElement = (V)existing.get(generalCounter).get();
-            existing.set(generalCounter, Bucket.of(e));
-            return prevElement;
-        }catch (Exception ex) {
-            return null;
-        }
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public <V> boolean putInCollection(K key, V e, int index)
     {
         List<Bucket<?>> existing = bucketMap.get(key);
@@ -189,6 +142,77 @@ public class HashMultibucket<K> implements Multibucket<K>
         }
 
         return true;
+    }
+
+
+    @Override
+    public <M, V> boolean putInMap(K key, M mapKey, V e, int index)
+    {
+        List<Bucket<?>> existing = bucketMap.get(key);
+        if(existing == null) return false;
+
+        try{
+            Bucket<?> b = existing.get(index);
+            if(!b.containsMap()) return false;
+            b.addToMap(mapKey, e);
+        }catch (Exception ex) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <V> Object replace(final K key, final V e, final int index)
+    {
+        List<Bucket<?>> existing = bucketMap.get(key);
+        if(existing == null) return null;
+
+        try{
+            Object prev = existing.get(index).get();
+            Bucket<V> newBucket = Bucket.of(e);
+            existing.set(index, newBucket);
+            return prev;
+        }catch (Exception ex) {
+            return null;
+        }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override @SuppressWarnings("unchecked")
+    public <V> V replaceSameType(final K key, final V e, final int index)
+    {
+        List<Bucket<?>> existing = bucketMap.get(key);
+        if(existing == null) return null;
+
+        try{
+            int typeCounter = 0;
+            int generalCounter = -1;
+            Bucket<V> wantedBucket = null;
+            for(Bucket<?> b : existing){
+                generalCounter++;
+                if(b.getType() == e.getClass()){
+                    if(typeCounter++ == index){
+                        wantedBucket = (Bucket<V>)b;
+                        break;
+                    }
+                }
+            }
+            if(wantedBucket == null) return null;
+
+            V prevElement = (V)existing.get(generalCounter).get();
+            existing.set(generalCounter, Bucket.of(e));
+            return prevElement;
+        }catch (Exception ex) {
+            return null;
+        }
     }
 
 
@@ -298,6 +322,20 @@ public class HashMultibucket<K> implements Multibucket<K>
 
         try{
             return (E)existing.get(index).get();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+
+    @Override @SuppressWarnings("unchecked")
+    public <M, V> V getFromMap(final K key, final M mapKey, final int index)
+    {
+        List<Bucket<?>> existing = bucketMap.get(key);
+        if(existing == null) return null;
+
+        try{
+            return ((Map<M,V>)existing.get(index).get()).get(mapKey);
         }catch (Exception e){
             return null;
         }

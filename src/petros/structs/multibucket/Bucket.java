@@ -4,6 +4,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * @author Petros Papatheodorou
+ * @author GitHub: subamanis
+ * @author petrospapa21@gmail.com
+ * @param <E> The type of the element of the Bucket.
+ */
 public class Bucket<E> implements GenericBucket<E>
 {
     private E element;

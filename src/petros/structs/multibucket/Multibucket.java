@@ -3,6 +3,12 @@ package petros.structs.multibucket;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author Petros Papatheodorou
+ * @author GitHub: subamanis
+ * @author petrospapa21@gmail.com
+ * @param <K> The type of the key.
+ */
 public interface Multibucket<K>
 {
 
@@ -63,7 +69,7 @@ public interface Multibucket<K>
 
     /**
      * If such a key exists, put the specified value inside the {@code Collection} of the {@code Bucket} of the specified index.
-     * @param index The index of the {@code Bucket}, relative to all the buckets associated with the provided key
+     * @param index The index of the {@code Bucket}, relative to all the buckets associated with the provided key.
      * @return {@code true} if the operation is successful, {@code false} if the key doesn't exist or if the index of
      * the {@code Bucket} is wrong or if the specified Bucket doesn't contain a modifiable {@code Collection}.
      */
@@ -79,6 +85,17 @@ public interface Multibucket<K>
      * the {@code Bucket} is wrong.
      */
     <T,V> boolean putInCollectionOfType(K key, V e, T t, int index);
+
+
+    /**
+     * If the {@code Bucket} of the specified index contains a {@code Map}, put a key-value pair inside.
+     * @param key The key of the {@code Bucket}.
+     * @param mapKey The key to be put in the {@code Map}.
+     * @param index The index of the {@code Bucket}, relative to all the buckets associated with the provided key.
+     * @return {@code true} if the operation was successful, {@code false} if the key doesn't exist or if the index of
+     * the {@code Bucket} is wrong or if the specified {@code Bucket} doesn't contain a {@code Map}.
+     */
+    <M,V> boolean putInMap(K key, M mapKey, V e, int index);
 
 
     /**
@@ -121,6 +138,16 @@ public interface Multibucket<K>
      * trying to access the {@code Bucket} of the index.
      */
     <E> E get(K key, int index);
+
+
+    /**
+     * If the {@code Bucket} at the specified index contains a {@code Map}, get the value associated with the given key.
+     * @param key The key of the {@code Bucket}.
+     * @param mapKey The key to be put in the {@code Map}.
+     * @return The value of the key of the Map if the operation was successful, {@code null} if a key doesn't exist
+     * or if the index of the {@code Bucket} is wrong or if the specified {@code Bucket} doesn't contain a {@code Map}.
+     */
+    <M,V> V getFromMap(K key, M mapKey, int index);
 
 
     /**
