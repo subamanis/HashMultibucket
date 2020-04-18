@@ -2,7 +2,7 @@
 A HashMap-like implementation where you can map a key to many values of different types.
 
 ### Usage
-Firstly, we create a HashMultibucket by specifying only the type of the keys.
+Firstly, we create a HashMultibucket by specifying only the type of the keys.  
 `Multibucket<String> mb = new HashMultibucket<>();`
 
 Now we can use this data structure like a HashMap to put a key-value pair, 
