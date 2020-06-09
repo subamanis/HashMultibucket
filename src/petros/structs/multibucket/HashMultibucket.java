@@ -6,6 +6,8 @@ import java.util.*;
  * @author Petros Papatheodorou
  * @author GitHub: subamanis
  * @author petrospapa21@gmail.com
+ *
+ *
  * @param <K> Type of the keys.
  */
 public class HashMultibucket<K> implements Multibucket<K>
@@ -28,9 +30,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int size()
     {
@@ -38,9 +37,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> void put(final K key, final V e)
     {
@@ -49,9 +45,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> boolean putIfAbsent(K key, V e)
     {
@@ -75,9 +68,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> boolean putIfAbsentType(final K key, final V e)
     {
@@ -103,9 +93,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> boolean putInCollection(K key, V e, int index)
     {
@@ -124,9 +111,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <T, V> boolean putInCollectionOfType(final K key, final V e, final T t, final int index)
     {
@@ -163,9 +147,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> Object replace(final K key, final V e, final int index)
     {
@@ -183,9 +164,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override @SuppressWarnings("unchecked")
     public <V> V replaceSameType(final K key, final V e, final int index)
     {
@@ -216,9 +194,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> boolean contains(final K key, final V e)
     {
@@ -234,9 +209,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <T> boolean containsType(final K key, final Class<T> t)
     {
@@ -252,9 +224,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean containsKey(K key)
     {
@@ -262,9 +231,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Set<K> keySet()
     {
@@ -272,9 +238,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> int getFirstIndex(final K key, final V e)
     {
@@ -291,9 +254,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <V> List<Integer> getAllIndexes(final K key, final V e)
     {
@@ -311,9 +271,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override @SuppressWarnings("unchecked")
     public <E> E get(final K key, final int index)
     {
@@ -342,9 +299,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <T> List<Bucket<?>> getAllOfType(final K key, final Class<T> t)
     {
@@ -361,9 +315,6 @@ public class HashMultibucket<K> implements Multibucket<K>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Bucket<?>> getAll(final K key)
     {
@@ -371,6 +322,27 @@ public class HashMultibucket<K> implements Multibucket<K>
         if(existing == null) return new ArrayList<>();
 
         return Collections.unmodifiableList(existing);
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HashMultibucket<?> that = (HashMultibucket<?>) o;
+        return bucketMap.equals(that.bucketMap);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(bucketMap);
+    }
+
+    @Override
+    public String toString()
+    {
+        return  "HashMultibucket of size: "+size();
     }
 
 }

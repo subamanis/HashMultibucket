@@ -245,4 +245,22 @@ class HashMultibucketTest
         assertEquals(4, smb.getAll("ee").size());
     }
 
+    @Test
+    void equals()
+    {
+        Multibucket<String> mb = new HashMultibucket<>();
+        Multibucket<String> mb1 = new HashMultibucket<>();
+        assertEquals(mb, mb1);
+
+        mb.put("ena", 1);
+        assertNotEquals(mb, mb1);
+
+        mb1.put("ena",1);
+        mb.put("duo", (List.of(1,2,3,4)));
+        mb1.put("duo", (List.of(1,2,3,4)));
+        mb.put("tria", "eee");
+        mb1.put("tria", "eee");
+
+        assertEquals(mb, mb1);
+    }
 }

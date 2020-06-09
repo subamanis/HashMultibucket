@@ -149,4 +149,31 @@ class BucketTest
         assertNotEquals(Integer.valueOf(3), b1.getFromMap(1));
         assertNotEquals(Integer.valueOf(2), b1.getFromMap(3));
     }
+
+
+    @Test
+    void equals()
+    {
+        GenericBucket<String> gb = new Bucket<>();
+        GenericBucket<String> gb1 = new Bucket<>();
+
+        gb.put("e");
+        assertNotEquals(gb, gb1);
+        gb1.put("e");
+        assertEquals(gb, gb1);
+
+        GenericBucket<List<Integer>> gb2 = new Bucket<>();
+        GenericBucket<Map<Integer, Integer>> gb3 = new Bucket<>();
+
+        ArrayList<Integer> l1 = new ArrayList<>();
+        l1.add(1);
+
+        Map<Integer, Integer> m1 = new HashMap<>();
+        m1.put(1,1);
+
+        gb2.put(l1);
+        gb3.put(m1);
+
+        assertNotEquals(gb2, gb3);
+    }
 }

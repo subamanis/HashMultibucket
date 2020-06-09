@@ -8,6 +8,8 @@ import java.util.Objects;
  * @author Petros Papatheodorou
  * @author GitHub: subamanis
  * @author petrospapa21@gmail.com
+ *
+ *
  * @param <E> The type of the element of the Bucket.
  */
 public class Bucket<E> implements GenericBucket<E>
@@ -32,9 +34,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isEmpty()
     {
@@ -49,9 +48,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean containsCollection()
     {
@@ -61,9 +57,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override @SuppressWarnings("unchecked")
     public <V> boolean containedInCollection(final V e)
     {
@@ -73,9 +66,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean containsMap()
     {
@@ -85,9 +75,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public E put(final E e)
     {
@@ -97,9 +84,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public E putIfEmpty(final E e)
     {
@@ -110,9 +94,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override @SuppressWarnings("unchecked")
     public <V> boolean addToCollection(final V e)
     {
@@ -122,9 +103,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override @SuppressWarnings("unchecked")
     public <K,V> V addToMap(final K key, final V value)
     {
@@ -134,9 +112,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public E get()
     {
@@ -144,9 +119,6 @@ public class Bucket<E> implements GenericBucket<E>
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override @SuppressWarnings("unchecked")
     public <K, V> V getFromMap(final K key)
     {

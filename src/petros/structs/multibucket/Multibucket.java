@@ -7,6 +7,8 @@ import java.util.Set;
  * @author Petros Papatheodorou
  * @author GitHub: subamanis
  * @author petrospapa21@gmail.com
+ *
+ *
  * @param <K> The type of the key.
  */
 public interface Multibucket<K>

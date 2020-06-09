@@ -4,6 +4,8 @@ package petros.structs.multibucket;
  * @author Petros Papatheodorou
  * @author GitHub: subamanis
  * @author petrospapa21@gmail.com
+ *
+ *
  * @param <E> The type of the element of the Bucket.
  */
 public interface GenericBucket<E>
